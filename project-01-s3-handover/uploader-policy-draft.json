@@ -1,0 +1,32 @@
+
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "ListFormsPrefixOnly",
+      "Effect": "Allow",
+      "Action": "s3:ListBucket",
+      "Resource": "arn:aws:s3:::devops-handover-e5b1bd1ee796",
+      "Condition": {
+        "StringLike": {
+          "s3:prefix": [
+            "forms/",
+            "forms/*"
+          ]
+        }
+      }
+    },
+    {
+      "Sid": "UploadForms",
+      "Effect": "Allow",
+      "Action": "s3:PutObject",
+      "Resource": "arn:aws:s3:::devops-handover-e5b1bd1ee796/forms/*"
+    },
+    {
+      "Sid": "ReadRequiredObject",
+      "Effect": "Allow",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::devops-handover-e5b1bd1ee796/forms/sample-form.txt"
+    }
+  ]
+}
