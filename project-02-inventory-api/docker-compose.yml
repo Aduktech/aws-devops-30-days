@@ -1,0 +1,10 @@
+services:
+  inventory-api:
+    build:
+      context: .
+    image: inventory-alert-api:0.1
+    container_name: inventory-api
+    ports:
+      - "8000:8000"
+    environment:
+      APP_ENV: development
