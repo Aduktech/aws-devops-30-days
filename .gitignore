@@ -12,6 +12,7 @@ crash.log
 *.pem
 *.key
 *.p12
+!.env.example
 
 
 
