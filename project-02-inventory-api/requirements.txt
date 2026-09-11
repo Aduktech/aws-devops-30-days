@@ -1,3 +1,4 @@
-fastapi[standard]==0.129.1
+fastapi[standard]==0.141.1
+Starlette== 1.6.0
 pytest==8.4.2
 httpx==0.28.1

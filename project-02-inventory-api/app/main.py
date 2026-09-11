@@ -1,9 +1,8 @@
-import os
 import logging
+import os
 
 from fastapi import FastAPI, status
 from pydantic import BaseModel, Field
-
 
 APP_ENV = os.getenv("APP_ENV", "development")
 LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
