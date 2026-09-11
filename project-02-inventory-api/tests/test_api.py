@@ -35,7 +35,7 @@ def setup_function():
 def test_health_returns_200():
     response = client.get("/health")
 
-    assert response.status_code == 201
+    assert response.status_code == 200
     assert response.json()["status"] == "ok"
 
 
