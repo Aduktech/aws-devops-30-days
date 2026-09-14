@@ -44,6 +44,12 @@ class ItemCreate(BaseModel):
     reorder_level: int = Field(ge=0)
 
 
+class InventoryItem(BaseModel):
+    name: str = Field(min_length=1, max_length=100)
+    quantity: int = Field(ge=0)
+    reorder_level: int = Field(ge=0)
+
+
 @app.get("/")
 def root():
     return {
