@@ -1,5 +1,8 @@
+import json
 import logging
 import os
+import uuid
+from datetime import datetime, timezone
 
 from fastapi import FastAPI, status
 from pydantic import BaseModel, Field
@@ -7,8 +10,21 @@ from pydantic import BaseModel, Field
 APP_ENV = os.getenv("APP_ENV", "development")
 LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
 
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("inventory-api")
 logger = logging.getLogger(__name__)
 logger.setLevel(getattr(logging, LOG_LEVEL.upper(), logging.INFO))
+
+
+def log_event(level: str, message: str, request_id: str):
+    log_data = {
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "level": level,
+        "request_id": request_id,
+        "message": message,
+    }
+
+    logger.info(json.dumps(log_data))
 
 app = FastAPI(
     title="Inventory Alert API",
@@ -61,9 +77,17 @@ def root():
 
 @app.get("/health")
 def health():
+    request_id = str(uuid.uuid4())
+
+    log_event(
+        level="INFO",
+        message="Health check successful",
+        request_id=request_id,
+    )
+
     return {
         "status": "ok",
-        "environment": APP_ENV,
+        "request_id": request_id,
     }
 
 
