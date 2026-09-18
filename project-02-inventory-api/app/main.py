@@ -26,6 +26,7 @@ def log_event(level: str, message: str, request_id: str):
 
     logger.info(json.dumps(log_data))
 
+
 app = FastAPI(
     title="Inventory Alert API",
     version="0.1.0",
