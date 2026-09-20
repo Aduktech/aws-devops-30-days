@@ -64,3 +64,23 @@ jobs:
           ignore-unfixed: true
           vuln-type: "os,library"
           severity: "CRITICAL,HIGH"
+       - name: Setup Terraform
+  uses: hashicorp/setup-terraform@v3
+
+- name: Terraform Format Check
+  working-directory: project-03-terraform-foundation
+  run: terraform fmt -check -recursive
+
+- name: Terraform Init
+  working-directory: project-03-terraform-foundation
+  run: terraform init -backend=false
+
+- name: Terraform Validate
+  working-directory: project-03-terraform-foundation
+  run: terraform validate
+
+- name: Checkov Terraform Scan
+  uses: bridgecrewio/checkov-action@master
+  with:
+    directory: project-03-terraform-foundation
+    framework: terraform
