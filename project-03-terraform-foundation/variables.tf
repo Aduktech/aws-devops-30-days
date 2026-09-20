@@ -1,5 +1,5 @@
 variable "project_name" {
-  description = "Name used for project resources"
+  description = "project-03-terraform-foundation"
   type        = string
   default     = "devops-foundation"
 }
@@ -7,7 +7,11 @@ variable "project_name" {
 variable "environment" {
   description = "Deployment environment"
   type        = string
-  default     = "lab"
+
+  validation {
+    condition     = contains(["dev", "test", "prod"], var.environment)
+    error_message = "Environment must be dev, test or prod."
+  }
 }
 
 variable "aws_region" {

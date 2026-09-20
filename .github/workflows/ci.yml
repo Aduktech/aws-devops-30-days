@@ -84,3 +84,23 @@ jobs:
   with:
     directory: project-03-terraform-foundation
     framework: terraform
+
+- name: Setup Terraform
+  uses: hashicorp/setup-terraform@v3
+
+- name: Terraform Format Check
+  working-directory: project-03-terraform-foundation
+  run: terraform fmt -check -recursive
+
+- name: Terraform Init
+  working-directory: project-03-terraform-foundation
+  run: terraform init
+
+- name: Terraform Validate
+  working-directory: project-03-terraform-foundation
+  run: terraform validate
+
+- name: Terraform Plan
+  if: github.event_name == 'pull_request'
+  working-directory: project-03-terraform-foundation
+  run: terraform plan -var-file=dev.tfvars.example -input=false
