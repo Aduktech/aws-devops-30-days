@@ -39,3 +39,52 @@ chmod 700 backup.sh
 - Post-rollback health check: PASS
 - Remote access method: AWS Systems Manager Session Manager
 - SSH port 22 exposed: No
+
+
+# Terraform AWS Foundation
+
+## Purpose
+
+Reproducible AWS foundation for development environments.
+
+## Resources
+
+- VPC
+- Two public subnets across Availability Zones
+- Internet Gateway
+- Public route table
+- Security group with no inbound rules
+- Private encrypted S3 artifact bucket
+- S3 versioning
+- S3 Block Public Access
+- Remote S3 Terraform state
+- S3 state locking
+
+## Cost Design
+
+No NAT Gateway is created because the current project does not require private-subnet outbound internet access.
+
+## Deployment
+
+terraform init
+terraform fmt -check -recursive
+terraform validate
+terraform plan -var-file=dev.tfvars -out=tfplan
+terraform show tfplan
+terraform apply tfplan
+
+## Verification
+
+terraform output
+aws s3api get-bucket-versioning --bucket "$(terraform output -raw artifact_bucket_name)"
+aws s3api get-bucket-encryption --bucket "$(terraform output -raw artifact_bucket_name)"
+
+## Security
+
+- Remote encrypted Terraform state
+- State versioning
+- State locking
+- S3 public access blocked
+- Artifact encryption
+- No default inbound security-group access
+- Environment values supplied through variables
