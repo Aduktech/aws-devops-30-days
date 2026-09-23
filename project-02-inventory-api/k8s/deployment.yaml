@@ -4,6 +4,14 @@ metadata:
   name: inventory-api
   namespace: inventory
 
+resources:
+  requests:
+    cpu: "100m"
+    memory: "64Mi"
+  limits:
+    cpu: "500m"
+    memory: "256Mi"
+
 spec:
   replicas: 1
 
