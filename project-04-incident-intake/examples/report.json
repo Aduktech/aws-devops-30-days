@@ -1,0 +1,7 @@
+{
+  "category": "fire",
+  "severity": "high",
+  "location_code": "LAB-001",
+  "summary": "Simulated fire drill incident",
+  "time_received": "2026-09-24T09:00:00Z"
+}

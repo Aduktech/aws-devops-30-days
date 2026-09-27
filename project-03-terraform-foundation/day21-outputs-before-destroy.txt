@@ -1,0 +1,7 @@
+artifact_bucket_name = "terraform-foundation-dev-artifacts-d41d8352"
+public_subnet_ids = [
+  "subnet-0044421c605997524",
+  "subnet-0d40ac236ba558637",
+]
+security_group_id = "sg-05608727a432e180d"
+vpc_id = "vpc-00083456aafa3bb58"
