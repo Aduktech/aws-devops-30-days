@@ -33,3 +33,8 @@ venv/
 # Operating system files
 .DS_Store
 Thumbs.db
+
+# Terraform plan files
+*.tfplan
+tfplan
+destroy.tfplan
