@@ -1,0 +1,3 @@
+aws_region        = "eu-west-2"
+project_name      = "incident-intake"
+notification_email = "isaachrisadukwu@gmail.com"

@@ -14,7 +14,8 @@ crash.log
 *.p12
 !.env.example
 
-
+# Generated deployment packages
+*.zip
 
 # Editor and system files
 .vscode/
