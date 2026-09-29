@@ -1,90 +1,131 @@
-# aws-devops-30-days
+# AWS DevOps 30-Day Portfolio
 
-# AWS DevOps 30-Day Challenge
+A hands-on DevOps portfolio covering Linux, Git, AWS,
+Python APIs, Docker, CI/CD, Terraform, Kubernetes, Helm,
+serverless architecture, monitoring, security and operational
+recovery.
 
-- Region: eu-west-2
-- Environment: lab
-- Goal: Build practical AWS, Docker, CI/CD and Terraform skills.
-- Rule: Every cloud resource is tagged and removed after each lab.
+The projects were built as practical exercises rather than
+production systems. AWS resources used for labs are destroyed
+when they are no longer required.
 
-## How to run this project
+## Projects
 
-This repository contains practical exercises from my 30-day AWS DevOps challenge. The commands should be run from Ubuntu on WSL2 unless stated otherwise.
+### Project 01 — Secure S3 Handover
 
-### Prerequisites
+**Problem:** Teams need a controlled way to work with files
+in AWS without exposing credentials or making data public.
 
-- Ubuntu on WSL2
-- Git
-- Python 3
-- Docker Desktop with WSL integration
-- AWS CLI v2
+**Solution:** Built an AWS CLI and S3 workflow using IAM
+Identity Center authentication and secure bucket practices.
 
-### Run the Day 2 backup script
+[View Project](./project-01-s3-handover/)
 
-From the repository root:
+**Tools:** AWS CLI, Amazon S3, IAM Identity Center, Git
 
-```bash
-chmod 700 backup.sh
-./backup.sh
+---
 
-## Day 14 Deployment Test
+### Project 02 — Inventory API
 
-- Known-good image tag: 6e6478cd0e7363ebd7e010535174106d2ee71533
-- EC2 deployment time:Mon Sep 14 22:45:01 WAT 2026
-- Local health check: PASS
-- External health check: PASS
-- Broken test deployment: health check failed as expected
-- Rollback image tag: 250675045042.dkr.ecr.eu-west-2.amazonaws.com/inventory-alert-api:6e6478cd0e7363ebd7e010535174106d2ee71533
-- Rollback completion time: Mon Sep 14 22:55:35 WAT 2026
-- Post-rollback health check: PASS
-- Remote access method: AWS Systems Manager Session Manager
-- SSH port 22 exposed: No
+**Problem:** A small API needs a repeatable path from local
+development to containerised deployment.
 
+**Solution:** Built and tested a FastAPI service, containerised
+it with Docker, added CI/security checks, and deployed it
+locally with Kubernetes and Helm.
 
-# Terraform AWS Foundation
+[View Project](./project-02-inventory-api/)
 
-## Purpose
+**Tools:** Python, FastAPI, Pytest, Ruff, Docker, GitHub
+Actions, Trivy, Kubernetes, Kind, Helm
 
-Reproducible AWS foundation for development environments.
+---
 
-## Resources
+### Project 03 — Terraform AWS Foundation
 
-- VPC
-- Two public subnets across Availability Zones
-- Internet Gateway
-- Public route table
-- Security group with no inbound rules
-- Private encrypted S3 artifact bucket
-- S3 versioning
-- S3 Block Public Access
-- Remote S3 Terraform state
-- S3 state locking
+**Problem:** Manually created cloud environments become
+inconsistent and difficult to reproduce.
 
-## Cost Design
+**Solution:** Defined a small AWS foundation with Terraform,
+including networking, secure S3 storage, remote state and
+automated validation.
 
-No NAT Gateway is created because the current project does not require private-subnet outbound internet access.
+[View Project](./project-03-terraform-foundation/)
 
-## Deployment
+**Tools:** Terraform, AWS, VPC, S3, IAM, GitHub Actions,
+Checkov
 
-terraform init
-terraform fmt -check -recursive
-terraform validate
-terraform plan -var-file=dev.tfvars -out=tfplan
-terraform show tfplan
-terraform apply tfplan
+---
 
-## Verification
+### Project 04 — Serverless Incident Intake
 
-terraform output
-aws s3api get-bucket-versioning --bucket "$(terraform output -raw artifact_bucket_name)"
-aws s3api get-bucket-encryption --bucket "$(terraform output -raw artifact_bucket_name)"
+**Problem:** Repeated and incomplete field reports are
+difficult to track and escalate reliably.
+
+**Solution:** Built a portfolio prototype in which API Gateway
+accepts fictional reports, Lambda validates and processes
+them, DynamoDB stores unique reports, SNS handles
+high-severity notifications and CloudWatch provides
+observability.
+
+[View Project](./project-04-incident-intake/)
+
+**Tools:** Python, Pytest, Terraform, API Gateway, Lambda,
+DynamoDB, SNS, CloudWatch, IAM
+
+> This is a learning prototype using fictional data and is not
+> a production emergency-response system.
+
+## Engineering Practices Demonstrated
+
+- Infrastructure as Code
+- Git-based change control
+- CI validation
+- Unit testing
+- Containerisation
+- Kubernetes deployment
+- Helm packaging
+- Least-privilege IAM
+- Structured logging
+- Cloud monitoring
+- Idempotent request processing
+- Deployment rollback
+- Infrastructure cleanup
+- Security scanning
 
 ## Security
 
-- Remote encrypted Terraform state
-- State versioning
-- State locking
-- S3 public access blocked
-- Artifact encryption
-- No default inbound security-group access
-- Environment values supplied through variables
+No AWS access keys, private keys, Terraform state,
+`.env` files or real incident data should be committed
+to this repository.
+
+AWS authentication uses short-lived credentials through
+IAM Identity Center for the lab environment.
+
+## Testing
+
+Projects include automated tests and validation where
+appropriate, including:
+
+- Pytest
+- Ruff
+- Terraform fmt
+- Terraform validate
+- Checkov
+- Trivy
+- Kubernetes health probes
+- API verification tests
+
+## Cleanup
+
+Temporary AWS and local Kubernetes resources are removed
+after labs unless deliberately retained for continued work.
+
+Terraform destruction plans are reviewed before resources
+are removed.
+
+
+## Architecture
+
+Architecture diagrams for all portfolio projects are available
+in [docs/architecture](./docs/architecture/README.md).
